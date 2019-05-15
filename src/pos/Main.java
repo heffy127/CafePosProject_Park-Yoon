@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
@@ -49,7 +51,7 @@ public class Main {
 	static DefaultTableCellRenderer dcr;
 	static boolean finish = false;
 	static int tableRow = 0; // 행 수 세는 변수
-	static int finPrice = 1; // 최종 결제 금액
+	static int finPrice = 0; // 최종 결제 금액
 	static int selectText = 0;
 	private static JTextField textFindMember;
 	private static JTextField textShowName;
@@ -286,6 +288,7 @@ public class Main {
 		f1.getContentPane().add(button_6);
 
 		JButton buttonBack = new JButton("\uCC98\uC74C\uC73C\uB85C");
+		buttonBack.setBackground(new Color(102, 255, 102));
 		buttonBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login log = new Login();
@@ -314,7 +317,7 @@ public class Main {
 			}
 		});
 		textFindMember.setFont(new Font("굴림", Font.PLAIN, 18));
-		textFindMember.setBounds(90, 15, 109, 27);
+		textFindMember.setBounds(90, 15, 109, 35);
 		panel.add(textFindMember);
 		textFindMember.setColumns(10);
 
@@ -417,12 +420,12 @@ public class Main {
 				}
 			}
 		});
-		buttonShowMember.setBounds(211, 15, 60, 27);
+		buttonShowMember.setBounds(211, 15, 60, 35);
 		panel.add(buttonShowMember);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(255, 222, 173));
-		panel_2.setBounds(343, 385, 282, 339);
+		panel_2.setBounds(340, 385, 282, 339);
 		f1.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 
@@ -488,7 +491,7 @@ public class Main {
 		});
 		textTakemoney.setFont(new Font("굴림", Font.PLAIN, 13));
 		textTakemoney.setHorizontalAlignment(SwingConstants.CENTER);
-		textTakemoney.setBounds(114, 288, 92, 34);
+		textTakemoney.setBounds(114, 288, 92, 35);
 		panel_2.add(textTakemoney);
 		textTakemoney.setColumns(10);
 
@@ -564,7 +567,7 @@ public class Main {
 			}
 		});
 		buttonShowChange.setFont(new Font("굴림", Font.BOLD, 11));
-		buttonShowChange.setBounds(212, 289, 58, 34);
+		buttonShowChange.setBounds(212, 288, 58, 36);
 		panel_2.add(buttonShowChange);
 
 		JLabel label_7 = new JLabel("받을 금액");
@@ -795,7 +798,7 @@ public class Main {
 		buttonEnter.setForeground(new Color(255, 255, 255));
 		buttonEnter.setBackground(new Color(105, 105, 105));
 		buttonEnter.setFont(new Font("굴림", Font.BOLD, 23));
-		buttonEnter.setBounds(12, 25, 118, 56);
+		buttonEnter.setBounds(12, 25, 116, 56);
 		panel_8.add(buttonEnter);
 
 		JButton btnAc = new JButton("AC");
@@ -810,8 +813,8 @@ public class Main {
 		});
 		btnAc.setForeground(Color.RED);
 		btnAc.setFont(new Font("굴림", Font.BOLD, 23));
-		btnAc.setBackground(SystemColor.controlDkShadow);
-		btnAc.setBounds(12, 91, 118, 56);
+		btnAc.setBackground(new Color(153, 153, 153));
+		btnAc.setBounds(12, 91, 116, 56);
 		panel_8.add(btnAc);
 		// 멤버쉽 패널 끝
 
@@ -943,6 +946,16 @@ public class Main {
 		buttonCredit.setBounds(190, 0, 196, 60);
 		panel_6.add(buttonCredit);
 
+		JLabel labelDate = new JLabel("New label");	// 우측 상단 날짜 라벨
+		labelDate.setForeground(new Color(128, 128, 128));
+		labelDate.setFont(new Font("굴림", Font.BOLD, 15));
+		labelDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		labelDate.setBounds(832, 56, 198, 32);
+		f1.getContentPane().add(labelDate);
+		Calendar date = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 E요일");
+		labelDate.setText(sdf.format(date.getTime()));
+		
 		f1.setVisible(true);
 	}
 

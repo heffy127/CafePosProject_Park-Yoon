@@ -5,7 +5,6 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 
-import pos.InfoUpdate;
 import pos.Main;
 
 import java.awt.Color;
