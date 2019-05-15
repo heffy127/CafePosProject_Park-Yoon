@@ -28,6 +28,7 @@ public class Login {
 		f.getContentPane().setLayout(null);
 		
 		t1 = new JTextField();
+		t1.setFont(new Font("굴림", Font.PLAIN, 20));
 		t1.setBounds(480, 399, 302, 38);
 		f.getContentPane().add(t1);
 		t1.setColumns(10);

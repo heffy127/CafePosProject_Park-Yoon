@@ -10,6 +10,8 @@ import java.awt.event.FocusEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
@@ -58,6 +60,8 @@ public class Main {
 	private static JTextField textShowTel;
 	private static JTextField textShowStamp;
 	private static JTextField textTakemoney;
+	private static JLabel labelDate;
+	private static JLabel labelTime;
 
 	public Main() {
 		CoffeeInfo espre = new CoffeeInfo("Espresso", 2500);
@@ -276,19 +280,20 @@ public class Main {
 		f1.getContentPane().add(buttonChoco);
 
 		// 임시로 쿠폰사용여부 값 가져오는 버튼
-		JButton buttonImsi = new JButton();
+		JButton button_1 = new JButton();
 
-		buttonImsi.setFont(new Font("굴림", Font.BOLD, 14));
-		buttonImsi.setBounds(900, 158, 130, 60);
-		f1.getContentPane().add(buttonImsi);
+		button_1.setFont(new Font("굴림", Font.BOLD, 14));
+		button_1.setBounds(900, 158, 130, 60);
+		f1.getContentPane().add(button_1);
 
-		JButton button_6 = new JButton("");
-		button_6.setFont(new Font("굴림", Font.BOLD, 26));
-		button_6.setBounds(771, 218, 130, 60);
-		f1.getContentPane().add(button_6);
+		JButton button_2 = new JButton("");
+		button_2.setFont(new Font("굴림", Font.BOLD, 26));
+		button_2.setBounds(771, 218, 130, 60);
+		f1.getContentPane().add(button_2);
 
-		JButton buttonBack = new JButton("\uCC98\uC74C\uC73C\uB85C");
-		buttonBack.setBackground(new Color(102, 255, 102));
+		JButton buttonBack = new JButton("로그인 화면");
+		buttonBack.setForeground(new Color(255, 255, 255));
+		buttonBack.setBackground(new Color(0, 100, 0));
 		buttonBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login log = new Login();
@@ -297,7 +302,7 @@ public class Main {
 			}// 로그인 화면으로
 		});
 		buttonBack.setFont(new Font("굴림", Font.BOLD, 15));
-		buttonBack.setBounds(900, 218, 130, 60);
+		buttonBack.setBounds(642, 30, 130, 60);
 		f1.getContentPane().add(buttonBack);
 
 		// 메인메뉴 멤버쉽 패널
@@ -338,6 +343,7 @@ public class Main {
 		panel_1.add(label_1);
 
 		textShowName = new JTextField();
+		textShowName.setHorizontalAlignment(SwingConstants.CENTER);
 		textShowName.setBackground(new Color(255, 255, 255));
 		textShowName.setEditable(false);
 		textShowName.setFont(new Font("굴림", Font.PLAIN, 16));
@@ -346,6 +352,7 @@ public class Main {
 		textShowName.setColumns(10);
 
 		textShowTel = new JTextField();
+		textShowTel.setHorizontalAlignment(SwingConstants.CENTER);
 		textShowTel.setBackground(new Color(255, 255, 255));
 		textShowTel.setEditable(false);
 		textShowTel.setFont(new Font("굴림", Font.PLAIN, 16));
@@ -354,9 +361,10 @@ public class Main {
 		panel_1.add(textShowTel);
 
 		textShowStamp = new JTextField();
+		textShowStamp.setHorizontalAlignment(SwingConstants.CENTER);
 		textShowStamp.setBackground(new Color(255, 255, 255));
 		textShowStamp.setEditable(false);
-		textShowStamp.setFont(new Font("굴림", Font.PLAIN, 16));
+		textShowStamp.setFont(new Font("굴림", Font.BOLD, 16));
 		textShowStamp.setColumns(10);
 		textShowStamp.setBounds(105, 142, 132, 35);
 		panel_1.add(textShowStamp);
@@ -403,7 +411,7 @@ public class Main {
 		panel_1.add(lblNewLabel_1);
 
 		JButton buttonShowMember = new JButton("검색");
-		buttonShowMember.setFont(new Font("굴림", Font.BOLD, 11));
+		buttonShowMember.setFont(new Font("굴림", Font.PLAIN, 13));
 		buttonShowMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String tel = textFindMember.getText();
@@ -413,6 +421,12 @@ public class Main {
 				textShowTel.setText(mdto.getTel());
 				textShowStamp.setText(String.valueOf(mdto.getStamp()));
 
+				if (mdto.getStamp() < 10) {
+					textShowStamp.setForeground(Color.red);
+				}else {
+					textShowStamp.setForeground(Color.black);
+				}
+				
 				if (mdto.getTel() == "" || mdto.getTel() == null) {
 					labelMemberAlert.setText("조회되지 않는 회원입니다.");
 				} else {
@@ -531,7 +545,7 @@ public class Main {
 			}
 		});
 		buttonSelectFinish.setBackground(new Color(0, 102, 204));
-		buttonSelectFinish.setFont(new Font("굴림", Font.BOLD, 21));
+		buttonSelectFinish.setFont(new Font("굴림", Font.BOLD | Font.ITALIC, 21));
 		buttonSelectFinish.setBounds(642, 288, 125, 85);
 		f1.getContentPane().add(buttonSelectFinish);
 
@@ -566,7 +580,7 @@ public class Main {
 				labelShowChange.setText(String.valueOf(change) + " 원");
 			}
 		});
-		buttonShowChange.setFont(new Font("굴림", Font.BOLD, 11));
+		buttonShowChange.setFont(new Font("굴림", Font.PLAIN, 12));
 		buttonShowChange.setBounds(212, 288, 58, 36);
 		panel_2.add(buttonShowChange);
 
@@ -785,7 +799,7 @@ public class Main {
 		b11.setBounds(167, 191, 72, 56);
 		panel_7.add(b11);
 
-		JButton buttonEnter = new JButton("Enter");
+		JButton buttonEnter = new JButton("검색 / 입력");
 		buttonEnter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectText == 0) {
@@ -797,7 +811,7 @@ public class Main {
 		});
 		buttonEnter.setForeground(new Color(255, 255, 255));
 		buttonEnter.setBackground(new Color(105, 105, 105));
-		buttonEnter.setFont(new Font("굴림", Font.BOLD, 23));
+		buttonEnter.setFont(new Font("굴림", Font.BOLD, 14));
 		buttonEnter.setBounds(12, 25, 116, 56);
 		panel_8.add(buttonEnter);
 
@@ -821,7 +835,7 @@ public class Main {
 		/*
 		 * 전체삭제 버튼
 		 */
-		JButton buttonAllDelete = new JButton("\uC804\uCCB4\uC0AD\uC81C");
+		JButton buttonAllDelete = new JButton("목록삭제");
 		buttonAllDelete.setForeground(new Color(220, 20, 60));
 		buttonAllDelete.setBackground(new Color(255, 255, 51));
 		buttonAllDelete.addActionListener(new ActionListener() {
@@ -842,7 +856,7 @@ public class Main {
 				labelFinPrice.setText("");
 			}
 		});
-		buttonAllDelete.setFont(new Font("굴림", Font.BOLD, 17));
+		buttonAllDelete.setFont(new Font("굴림", Font.BOLD, 19));
 		buttonAllDelete.setBounds(642, 223, 125, 55);
 		f1.getContentPane().add(buttonAllDelete);
 
@@ -860,17 +874,17 @@ public class Main {
 					NoFinPrice nof = new NoFinPrice();
 					return;
 				}
-				
+
 				InvenDto idto2 = idao.list();
-				if (idto2.getBean()-idto.getBean() < 0 || idto2.getMilk() - idto.getMilk() < 0 ||
-					idto2.getChoco()- idto.getBean() < 0 || idto2.getCream() - idto.getCream() < 0 ||
-					idto2.getCup() - idto.getCup() < 0 || idto2.getStraw() - idto.getStraw() < 0 ) {
+				if (idto2.getBean() - idto.getBean() < 0 || idto2.getMilk() - idto.getMilk() < 0
+						|| idto2.getChoco() - idto.getBean() < 0 || idto2.getCream() - idto.getCream() < 0
+						|| idto2.getCup() - idto.getCup() < 0 || idto2.getStraw() - idto.getStraw() < 0) {
 					NotEnoughInven nei = new NotEnoughInven();
 					return;
 				}
-				idao.use(idto);	// db에 있는 재고 소모시킴
-				idto = new InvenDto(0, 0, 0, 0, 0, 0);	// 모두 0값으로 초기화
-				
+				idao.use(idto); // db에 있는 재고 소모시킴
+				idto = new InvenDto(0, 0, 0, 0, 0, 0); // 모두 0값으로 초기화
+
 				// 멤버쉽 사용 DB 연동
 				String tel = textShowTel.getText();
 				if (tel != null || !(tel.trim().equals(""))) { // 메인에서 멤버쉽 조회를 한 경우만 실행
@@ -893,7 +907,7 @@ public class Main {
 					} else { // 쿠폰 사용 안할 시 총 수량만큼 스탬프 적립
 						int cnt = 0;
 						for (int i = 0; i < table.getRowCount(); i++) {
-							cnt += (int) table.getValueAt(i, 4);
+							cnt += (int) table.getValueAt(i, 3);
 						}
 						mdao.plusStamp(mdto.getTel(), cnt);
 					}
@@ -946,17 +960,57 @@ public class Main {
 		buttonCredit.setBounds(190, 0, 196, 60);
 		panel_6.add(buttonCredit);
 
-		JLabel labelDate = new JLabel("New label");	// 우측 상단 날짜 라벨
+		Timer timer = new Timer();
+		timer.schedule(new MakeTime(), 0, 1000);
+		// 호출 객체, 지연시간, 호출간격
+
+		labelDate = new JLabel("New label"); // 우측 상단 날짜 라벨
 		labelDate.setForeground(new Color(128, 128, 128));
 		labelDate.setFont(new Font("굴림", Font.BOLD, 15));
 		labelDate.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelDate.setBounds(832, 56, 198, 32);
+		labelDate.setBounds(756, 72, 273, 18);
 		f1.getContentPane().add(labelDate);
-		Calendar date = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 E요일");
-		labelDate.setText(sdf.format(date.getTime()));
+
+		labelTime = new JLabel("New label");
+		labelTime.setHorizontalAlignment(SwingConstants.RIGHT);
+		labelTime.setForeground(Color.GRAY);
+		labelTime.setFont(new Font("굴림", Font.BOLD, 15));
+		labelTime.setBounds(756, 51, 273, 18);
+		f1.getContentPane().add(labelTime);
 		
+		JButton button_3 = new JButton("");
+		button_3.setFont(new Font("굴림", Font.BOLD, 26));
+		button_3.setBounds(900, 218, 130, 60);
+		f1.getContentPane().add(button_3);
+
 		f1.setVisible(true);
+	}
+
+	class MakeTime extends TimerTask { // 실시간 시계를 정의하는 클래스
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			Calendar date = Calendar.getInstance();
+			SimpleDateFormat sdf1_1 = new SimpleDateFormat("yyyy년 M월 d일 E요일");
+			SimpleDateFormat sdf1_2 = new SimpleDateFormat("yyyy년 M월 dd일 E요일");
+			SimpleDateFormat sdf2_1 = new SimpleDateFormat("yyyy년 MM월 d일 E요일");
+			SimpleDateFormat sdf2_2 = new SimpleDateFormat("yyyy년 MM월 dd일 E요일");
+			SimpleDateFormat sdf3 = new SimpleDateFormat("HH시 mm분 ss초");
+			if (date.MONTH >= 10) {
+				if (date.MINUTE >= 10)
+					labelDate.setText(sdf2_2.format(date.getTime()));
+				else
+					labelDate.setText(sdf2_1.format(date.getTime()));
+			} else {
+				if (date.MINUTE >= 10)
+					labelDate.setText(sdf1_2.format(date.getTime()));
+				else
+					labelDate.setText(sdf1_1.format(date.getTime()));
+			}
+			labelTime.setText(sdf3.format(date.getTime()));
+		}
+
 	}
 
 	public static void main(String[] args) throws Exception {
