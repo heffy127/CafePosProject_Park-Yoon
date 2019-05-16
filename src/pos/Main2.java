@@ -1,6 +1,7 @@
 package pos;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -42,7 +43,7 @@ import paybill.PaybillDAO;
 import paybill.PaybillDTO;
 import statistic.Statistic;
 
-public class Main {
+public class Main2 {
 	static MemberDao mdao = new MemberDao();
 	static MemberDto mdto = new MemberDto();
 	static PaybillDTO pdto = new PaybillDTO(); // 결제 내역 관리
@@ -64,12 +65,12 @@ public class Main {
 	private static JLabel labelDate;
 	private static JLabel labelTime;
 
-	public Main() {
+	public Main2() {
 		CoffeeInfo espre = new CoffeeInfo("Espresso", 2500);
 		CoffeeInfo ameri = new CoffeeInfo("Americano", 3000);
 		CoffeeInfo latte = new CoffeeInfo("CaffeLatte", 3500);
-		CoffeeInfo vienna = new CoffeeInfo("VienaCoffee", 3500);
-		CoffeeInfo choco = new CoffeeInfo("ChocoFrappuccino", 4000);
+		CoffeeInfo viena = new CoffeeInfo("VienaCoffee", 3500);
+		CoffeeInfo choco = new CoffeeInfo("ChocoFrapuccino", 4000);
 
 		JFrame f1 = new JFrame("카페 포스 시스템");
 		f1.setTitle("카페POS프로그램 (Ver 1.01)");
@@ -140,13 +141,7 @@ public class Main {
 		buttonstatistic.setBounds(530, 28, 95, 60);
 		f1.getContentPane().add(buttonstatistic);
 
-		ImageIcon latte_icon = new ImageIcon("CaffeLatte.png");
-		ImageIcon ameri_icon = new ImageIcon();
-		//ImageIcon ameri_icon = new ImageIcon();
-		ImageIcon vienna_icon = new ImageIcon("ViennaCoffee");
-		//ImageIcon ameri_icon = new ImageIcon();
-		JButton buttonEspre = new JButton();
-		buttonEspre.setIcon(ameri_icon);
+		JButton buttonEspre = new JButton("에스프레소");
 		buttonEspre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				idto.setBean(idto.getBean() + 2); // 원두 2소모
@@ -228,34 +223,33 @@ public class Main {
 		buttonLatte.setBounds(900, 98, 130, 60);
 		f1.getContentPane().add(buttonLatte);
 
-		JButton buttonVienna = new JButton("\uBE44\uC5D4\uB098\uCEE4\uD53C");
-		buttonVienna.setIcon(vienna_icon);
-		buttonVienna.addActionListener(new ActionListener() {
+		JButton buttonViena = new JButton("\uBE44\uC5D4\uB098\uCEE4\uD53C");
+		buttonViena.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				idto.setBean(idto.getBean() + 2); // 원두 2소모
 				idto.setCream(idto.getCream() + 2); // 크림 2소모
 				idto.setCup(idto.getCup() + 1); // 컵 1소모
 				idto.setStraw(idto.getStraw() + 1); // 빨대 1소모
-				if (vienna.num == 0) { // 목록에 처음 올라갈 경우
-					vienna.row = tableRow++;
+				if (viena.num == 0) { // 목록에 처음 올라갈 경우
+					viena.row = tableRow++;
 					Object[] obj = new Object[6];
 					obj[0] = tableRow;
-					obj[1] = vienna.name;
-					obj[2] = vienna.price;
-					obj[3] = ++vienna.num;
-					obj[4] = vienna.price;
+					obj[1] = viena.name;
+					obj[2] = viena.price;
+					obj[3] = ++viena.num;
+					obj[4] = viena.price;
 					obj[5] = false;
 					tmodel = (DefaultTableModel) table.getModel();
 					tmodel.addRow(obj); // 행추가
 				} else {// 같은 메뉴가 이미 목록에 올라와 있는 경우
-					tmodel.setValueAt(++vienna.num, vienna.row, 3);
-					tmodel.setValueAt(vienna.price * vienna.num, vienna.row, 4);
+					tmodel.setValueAt(++viena.num, viena.row, 3);
+					tmodel.setValueAt(viena.price * viena.num, viena.row, 4);
 				}
 			}
 		});
-		buttonVienna.setFont(new Font("굴림", Font.BOLD, 15));
-		buttonVienna.setBounds(642, 158, 130, 60);
-		f1.getContentPane().add(buttonVienna);
+		buttonViena.setFont(new Font("굴림", Font.BOLD, 15));
+		buttonViena.setBounds(642, 158, 130, 60);
+		f1.getContentPane().add(buttonViena);
 
 		JButton buttonChoco = new JButton("\uCD08\uCF54\uD504\uB77C\uD478\uCE58\uB178");
 		buttonChoco.addActionListener(new ActionListener() {
@@ -859,9 +853,8 @@ public class Main {
 				espre.num = 0;
 				ameri.num = 0;
 				latte.num = 0;
-				vienna.num = 0;
+				viena.num = 0;
 				choco.num = 0;
-				idto = new InvenDto(0, 0, 0, 0, 0, 0);
 				labelShowChange.setText("");
 				labelShowDiscount.setText("");
 				labelShowNum.setText("");
@@ -951,7 +944,7 @@ public class Main {
 				espre.num = 0;
 				ameri.num = 0;
 				latte.num = 0;
-				vienna.num = 0;
+				viena.num = 0;
 				choco.num = 0;
 				labelShowChange.setText("");
 				labelShowDiscount.setText("");
@@ -1027,7 +1020,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Main main = new Main();
+		Main2 main = new Main2();
 
 	}// main end
 }// class end
