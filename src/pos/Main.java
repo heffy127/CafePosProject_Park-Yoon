@@ -140,13 +140,13 @@ public class Main {
 		buttonstatistic.setBounds(530, 28, 95, 60);
 		f1.getContentPane().add(buttonstatistic);
 
-		ImageIcon latte_icon = new ImageIcon("CaffeLatte.png");
-		ImageIcon ameri_icon = new ImageIcon();
-		//ImageIcon ameri_icon = new ImageIcon();
-		ImageIcon vienna_icon = new ImageIcon("ViennaCoffee");
-		//ImageIcon ameri_icon = new ImageIcon();
+		ImageIcon latte_icon = new ImageIcon("latte.jpg");
+		ImageIcon espre_icon = new ImageIcon("espresso.jpg");
+		ImageIcon ameri_icon = new ImageIcon("americano.jpg");
+		ImageIcon vienna_icon = new ImageIcon("vienna.jpg");
+		ImageIcon choco_icon = new ImageIcon("frappuccino.jpg");
 		JButton buttonEspre = new JButton();
-		buttonEspre.setIcon(ameri_icon);
+		buttonEspre.setIcon(espre_icon);
 		buttonEspre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				idto.setBean(idto.getBean() + 2); // 원두 2소모
@@ -173,7 +173,8 @@ public class Main {
 		buttonEspre.setBounds(642, 98, 130, 60);
 		f1.getContentPane().add(buttonEspre);
 
-		JButton buttonAmeri = new JButton("아메리카노");
+		JButton buttonAmeri = new JButton();
+		buttonAmeri.setIcon(ameri_icon);
 		buttonAmeri.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				idto.setBean(idto.getBean() + 2); // 원두 2소모
@@ -200,7 +201,8 @@ public class Main {
 		buttonAmeri.setBounds(771, 98, 130, 60);
 		f1.getContentPane().add(buttonAmeri);
 
-		JButton buttonLatte = new JButton("\uCE74\uD398\uB77C\uB5BC");
+		JButton buttonLatte = new JButton();
+		buttonLatte.setIcon(latte_icon);
 		buttonLatte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				idto.setBean(idto.getBean() + 2); // 원두 2소모
@@ -228,7 +230,7 @@ public class Main {
 		buttonLatte.setBounds(900, 98, 130, 60);
 		f1.getContentPane().add(buttonLatte);
 
-		JButton buttonVienna = new JButton("\uBE44\uC5D4\uB098\uCEE4\uD53C");
+		JButton buttonVienna = new JButton();
 		buttonVienna.setIcon(vienna_icon);
 		buttonVienna.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -257,7 +259,8 @@ public class Main {
 		buttonVienna.setBounds(642, 158, 130, 60);
 		f1.getContentPane().add(buttonVienna);
 
-		JButton buttonChoco = new JButton("\uCD08\uCF54\uD504\uB77C\uD478\uCE58\uB178");
+		JButton buttonChoco = new JButton();
+		buttonChoco.setIcon(choco_icon);
 		buttonChoco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				idto.setBean(idto.getBean() + 2); // 원두 2소모
