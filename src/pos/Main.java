@@ -55,7 +55,10 @@ public class Main {
 	static boolean finish = false;
 	static int tableRow = 0; // 행 수 세는 변수
 	static int finPrice = 0; // 최종 결제 금액
-	static int selectText = 0;
+	static int selectText = 0; // (멤버찾기/받은금액)textfield focus된곳 가리키는 변수
+	public static int eventDoit = 0; // 1이 되면 이벤트 모드 실행임을 가리킴
+	public static String telForEvent = null;
+	public static JLabel labelShowEvent;
 	private static JTextField textFindMember;
 	private static JTextField textShowName;
 	private static JTextField textShowTel;
@@ -308,10 +311,10 @@ public class Main {
 		buttonBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int toLogin = JOptionPane.showConfirmDialog(null, "로그인 화면으로 돌아가겠습니까?");
-				if (toLogin == 0) {	// '예' 눌렀을때 로그인 화면 실행
+				if (toLogin == 0) { // '예' 눌렀을때 로그인 화면 실행
 					Login log = new Login();
 					f1.setVisible(false);
-				}else {	// 그대로
+				} else { // 그대로
 					return;
 				}
 			}// 로그인 화면으로
@@ -332,7 +335,7 @@ public class Main {
 		textFindMember = new JTextField();
 		textFindMember.addFocusListener(new FocusAdapter() {
 			@Override
-			public void focusGained(FocusEvent arg0) {
+			public void focusGained(FocusEvent arg0) { // focus 받았을때 실행
 				selectText = 0;
 			}
 		});
@@ -410,6 +413,11 @@ public class Main {
 				textShowName.setText("");
 				textShowStamp.setText("");
 				textShowTel.setText("");
+				if(eventDoit == 1) {
+					labelShowEvent.setText("이벤트 모드 On");
+					labelShowEvent.setForeground(new Color(0, 128, 0));
+				}
+					
 				labelMemberAlert.setText("* 손님에게 항상 친절하게 *");
 			}
 		});
@@ -435,8 +443,18 @@ public class Main {
 				textShowName.setText(mdto.getName());
 				textShowTel.setText(mdto.getTel());
 				textShowStamp.setText(String.valueOf(mdto.getStamp()));
+				
+				if (eventDoit == 1) {	// 이벤트 실행 중일때
+					if (mdto.getEvent() == 1) { // 이미 이벤트를 참여했을때 라벨로 표시
+						labelShowEvent.setText("이벤트 참여한 회원");
+						labelShowEvent.setForeground(Color.red);
+					} else {
+						labelShowEvent.setText("이벤트 모드 On");
+						labelShowEvent.setForeground(new Color(0, 128, 0));
+					}
+				}
 
-				if (mdto.getStamp() < 10) {
+				if (mdto.getStamp() < 10) { // 스탬프가 10개 미만일때 사용 불가라는 의미의 빨간글씨로 표시
 					textShowStamp.setForeground(Color.red);
 				} else {
 					textShowStamp.setForeground(Color.black);
@@ -629,9 +647,9 @@ public class Main {
 		JButton b0 = new JButton("0");
 		b0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (selectText == 0) {
+				if (selectText == 0) { // 멤버 찾기 textfield에 focus된 경우 버튼 누를때 그쪽에 입력
 					textFindMember.setText(textFindMember.getText().concat("0"));
-				} else {
+				} else { // 받은 금액 textfield에 focus된 경우 버튼 누를때 그쪽에 입력
 					textTakemoney.setText(textTakemoney.getText().concat("0"));
 				}
 			}
@@ -892,6 +910,7 @@ public class Main {
 				}
 
 				InvenDto idto2 = idao.list();
+				// 재고가 하나라도 모자랄 경우 결제 불가
 				if (idto2.getBean() - idto.getBean() < 0 || idto2.getMilk() - idto.getMilk() < 0
 						|| idto2.getChoco() - idto.getBean() < 0 || idto2.getCream() - idto.getCream() < 0
 						|| idto2.getCup() - idto.getCup() < 0 || idto2.getStraw() - idto.getStraw() < 0) {
@@ -917,8 +936,13 @@ public class Main {
 						} else if (mdto.getStamp() < couponCnt * 10) { // 쿠폰 사용하기에 스탬프 수 부족할 경우 메시지
 							NotEnoughStamp not = new NotEnoughStamp();
 							return;
-						} else {
-							mdao.UseStamp(mdto.getTel(), couponCnt);
+						} else {	
+							mdao.UseStamp(mdto.getTel(), couponCnt);	// 쿠폰 적용 수량 * 10만큼 스탬프 차감
+							int cnt = 0;
+							for (int i = 0; i < table.getRowCount(); i++) {
+								cnt += (int) table.getValueAt(i, 3);
+							}
+							mdao.plusStamp(mdto.getTel(), cnt - couponCnt);	// 총 개수 - 쿠폰 적용 수량 
 						}
 					} else { // 쿠폰 사용 안할 시 총 수량만큼 스탬프 적립
 						int cnt = 0;
@@ -928,6 +952,9 @@ public class Main {
 						mdao.plusStamp(mdto.getTel(), cnt);
 					}
 
+					if (eventDoit == 1) { // 이벤트 모드 실행중일 경우
+						telForEvent = mdto.getTel(); // 이벤트 적용할 전화번호 저장
+					}
 				} // 멤버쉽 조회한 경우 끝
 
 				// 메뉴창 초기화 + ArrayList에 paybill들 저장
@@ -944,12 +971,14 @@ public class Main {
 					payList.add(pdto);
 					tmodel.removeRow(i);
 				}
+
 				/*
-				 * 최종 paybill에 insert는 SelectGender에서 이루어진다. 바로위에서 'gender값을 제외하고 생성한 payList'를
-				 * SelectGender로 건네고 SelectGender에서 비어있는 gender값을 체운뒤 db에 insert
+				 * 최종 DB paybill에 insert는 SelectGender에서 이루어진다. 바로위에서 'gender값을 제외하고 생성한
+				 * payList'를 SelectGender로 건네고 SelectGender에서 비어있는 gender값을 체운뒤 db에 insert 하는 방식
 				 */
 				SelectGender sg = new SelectGender(payList);
 
+				// 메인화면 초기화
 				tableRow = 0;
 				espre.num = 0;
 				ameri.num = 0;
@@ -976,7 +1005,7 @@ public class Main {
 		buttonCredit.setBounds(190, 0, 196, 60);
 		panel_6.add(buttonCredit);
 
-		Timer timer = new Timer();
+		Timer timer = new Timer(); // 실시간 시계 설정
 		timer.schedule(new MakeTime(), 0, 1000);
 		// 호출 객체, 지연시간, 호출간격
 
@@ -998,6 +1027,13 @@ public class Main {
 		button_3.setFont(new Font("굴림", Font.BOLD, 26));
 		button_3.setBounds(900, 218, 130, 60);
 		f1.getContentPane().add(button_3);
+
+		labelShowEvent = new JLabel(""); // 이벤트 여부 보여주는 라벨
+		labelShowEvent.setHorizontalAlignment(SwingConstants.RIGHT);
+		labelShowEvent.setForeground(new Color(0, 128, 0));
+		labelShowEvent.setFont(new Font("굴림", Font.BOLD, 15));
+		labelShowEvent.setBounds(756, 28, 273, 18);
+		f1.getContentPane().add(labelShowEvent);
 
 		f1.setVisible(true);
 	}

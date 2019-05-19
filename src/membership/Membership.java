@@ -20,6 +20,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import javax.swing.JToggleButton;
+import pos.Main;
+
 public class Membership extends JFrame {
 	static DefaultTableModel tmodel;
 	static int mtableRow = 0; // 멤버쉽 테이블 목록 창
@@ -31,9 +34,10 @@ public class Membership extends JFrame {
 	private JTextField textFindmember;
 	private JTextField textInputName;
 	private JTextField textInputTel;
-	JLabel labelInsertAlert;
-	JLabel labelDeleteAlert;
+	JLabel labelInsertAlert; // 멤버쉽 생성 시 뜨는 메시지
+	JLabel labelDeleteAlert; // 멤버쉽 삭제 시 뜨는 메시지
 	private JTextField textdeleteTel;
+	JToggleButton toggleEvent; // 이벤트 실행 토글
 
 	public Membership() {
 		setTitle("멤버쉽 관리 창 (종료하기 버튼으로 종료)");
@@ -164,7 +168,7 @@ public class Membership extends JFrame {
 		getContentPane().add(buttonShowAll);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(532, 41, 210, 158);
+		panel.setBounds(532, 41, 210, 142);
 		panel.setBackground(new Color(255, 228, 181));
 		getContentPane().add(panel);
 		panel.setLayout(null);
@@ -179,27 +183,27 @@ public class Membership extends JFrame {
 		JLabel lblNewLabel = new JLabel("이 름");
 		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 14));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(0, 50, 82, 15);
+		lblNewLabel.setBounds(0, 38, 82, 15);
 		panel.add(lblNewLabel);
 
 		textInputName = new JTextField();
-		textInputName.setBounds(81, 47, 116, 21);
+		textInputName.setBounds(81, 34, 116, 21);
 		panel.add(textInputName);
 		textInputName.setColumns(10);
 
 		JLabel label_1 = new JLabel("전화번호");
 		label_1.setFont(new Font("굴림", Font.BOLD, 14));
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_1.setBounds(0, 85, 82, 15);
+		label_1.setBounds(0, 67, 82, 15);
 		panel.add(label_1);
 
 		textInputTel = new JTextField();
 		textInputTel.setColumns(10);
-		textInputTel.setBounds(81, 82, 116, 21);
+		textInputTel.setBounds(81, 64, 116, 21);
 		panel.add(textInputTel);
 
 		labelInsertAlert = new JLabel("");
-		labelInsertAlert.setBounds(532, 209, 210, 15);
+		labelInsertAlert.setBounds(532, 190, 210, 15);
 		labelInsertAlert.setBackground(new Color(220, 20, 60));
 		labelInsertAlert.setFont(new Font("굴림", Font.PLAIN, 14));
 		labelInsertAlert.setHorizontalAlignment(SwingConstants.CENTER);
@@ -220,7 +224,7 @@ public class Membership extends JFrame {
 				}
 			}
 		});
-		buttonInsertMem.setBounds(53, 113, 109, 35);
+		buttonInsertMem.setBounds(53, 95, 109, 35);
 		panel.add(buttonInsertMem);
 
 		JPanel panel_1 = new JPanel();
@@ -275,6 +279,60 @@ public class Membership extends JFrame {
 		});
 		buttonDeleteMem.setBounds(57, 69, 109, 35);
 		panel_1.add(buttonDeleteMem);
+		/*
+		 * 이벤트 토글
+		 */
+		if (Main.eventDoit == 0) {
+			JToggleButton toggleEvent = new JToggleButton("이벤트 모드 실행하기", false);
+			toggleEvent.setFont(new Font("굴림", Font.BOLD, 13));
+			toggleEvent.setForeground(new Color(0, 128, 0));
+			toggleEvent.setBackground(new Color(245, 255, 250));
+			toggleEvent.setBounds(551, 10, 180, 21);
+			getContentPane().add(toggleEvent);
+			toggleEvent.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (toggleEvent.isSelected()) {
+						toggleEvent.setText("이벤트 모드 해제하기");
+						toggleEvent.setForeground(Color.red);
+						mdao.resetEvent(); // 이벤트 모드 실행하면 회원들의 이벤트 참여 내역 초기화
+						Main.eventDoit = 1;
+						Main.labelShowEvent.setText("이벤트 모드 On");
+						Main.labelShowEvent.setForeground(new Color(0, 128, 0));
+					} else {
+						toggleEvent.setText("이벤트 모드 실행하기");
+						toggleEvent.setForeground(new Color(0, 128, 0));
+						toggleEvent.setBackground(new Color(245, 255, 250));
+						Main.eventDoit = 0;
+						Main.labelShowEvent.setText("");
+					}
+				}
+			});
+		} else {
+			JToggleButton toggleEvent = new JToggleButton("이벤트 모드 해제하기", true); // 토글 선택 된 상태
+			toggleEvent.setFont(new Font("굴림", Font.BOLD, 13));
+			toggleEvent.setForeground(Color.red);
+			toggleEvent.setBackground(new Color(245, 255, 250));
+			toggleEvent.setBounds(551, 10, 180, 21);
+			getContentPane().add(toggleEvent);
+			toggleEvent.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (toggleEvent.isSelected()) {
+						toggleEvent.setText("이벤트 모드 해제하기");
+						toggleEvent.setForeground(Color.red);
+						mdao.resetEvent(); // 이벤트 모드 실행하면 회원들의 이벤트 참여 내역 초기화
+						Main.eventDoit = 1;
+						Main.labelShowEvent.setText("이벤트 모드 On");
+						Main.labelShowEvent.setForeground(new Color(0, 128, 0));
+					} else {
+						toggleEvent.setText("이벤트 모드 실행하기");
+						toggleEvent.setForeground(new Color(0, 128, 0));
+						toggleEvent.setBackground(new Color(245, 255, 250));
+						Main.eventDoit = 0;
+						Main.labelShowEvent.setText("");
+					}
+				}
+			});
+		}
 
 		setVisible(true);
 
