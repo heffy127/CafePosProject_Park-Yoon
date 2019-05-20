@@ -55,6 +55,7 @@ public class Membership extends JFrame {
 		dcr = new DefaultTableCellRenderer(); // 셀 다루는 객체 (체크박스 생성, 가운데 정렬)
 		dcr.setHorizontalAlignment(SwingConstants.CENTER); //
 		table = new JTable(tmodel);
+		table.setEnabled(false);
 		scrollPane.setViewportView(table);
 
 		TableColumnModel tcm = table.getColumnModel(); // 테이블 가운데 정렬

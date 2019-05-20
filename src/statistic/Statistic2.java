@@ -17,16 +17,25 @@ import javax.swing.table.TableColumnModel;
 
 import statistic.StatDto;
 
-public class Statistic {
+public class Statistic2 {
 	static DefaultTableModel tmodel;
 	private StatDto dto;
 	private StatDto dto1;
+	private StatDto dto2;
+	private StatDto dto3;
+	private StatDto dto4;
+	private StatDto dto5;
+	private StatDto dto6;
+	private StatDto dto7;
+	private StatDto dto8;
+	private StatDto dto9;
+	private StatDto dto10;
 	private JTable table;
 	private JTable table1;
 	private JTable table2;
-	static int month1 = 5;
+	static int month1;
 	
-	public Statistic() {
+	public Statistic2() {
 
 		ArrayList list = new ArrayList();
 
@@ -34,19 +43,15 @@ public class Statistic {
 		dto = dao.count();
 		list = dao.list();
 		dto1 = dao.espresso();
-		System.out.println(dto1.getEspressoTotal());
-		dto1 = dao.americano();
-		System.out.println(dto1.getAmericanoTotal());
-		dto1 = dao.caffelatte();
-		dto1 = dao.vienacoffee();
-		dto1 = dao.chocofrapuccino();
-		System.out.println(dto1.getChocofrapuccinoTotal());
-		dto1 = dao.espressosale();
-		dto1 = dao.americanosale();
-		dto1 = dao.caffelattesale();
-		dto1 = dao.vienacoffeesale();
-		dto1 = dao.chocofrapuccinosale();
-		System.out.println(dto1);
+		dto2 = dao.americano();
+		dto3 = dao.caffelatte();
+		dto4 = dao.vienacoffee();
+		dto5 = dao.chocofrapuccino();
+		dto6 = dao.espressosale();
+		dto7 = dao.americanosale();
+		dto8 = dao.caffelattesale();
+		dto9 = dao.vienacoffeesale();
+		dto10 = dao.chocofrapuccinosale();
 		
 
 		JFrame f = new JFrame();
@@ -126,25 +131,25 @@ public class Statistic {
 						tmodel.removeRow(i);
 					}
 					dto1 = dao.espresso();
-					dto1 = dao.americano();
-					dto1 = dao.caffelatte();
-					dto1 = dao.vienacoffee();
-					dto1 = dao.chocofrapuccino();
-					dto1 = dao.espressosale();
-					dto1 = dao.americanosale();
-					dto1 = dao.caffelattesale();
-					dto1 = dao.vienacoffeesale();
-					dto1 = dao.chocofrapuccinosale();
-					contents1[0][1] = dto1.getEspressoTotal() - dto1.getEspressosalequan();
-					contents1[0][2] = dto1.getEspressoSum() - dto1.getEspressosale();
-					contents1[1][1] = dto1.getAmericanoTotal() - dto1.getAmericanosalequan();
-					contents1[1][2] = dto1.getAmericanoSum() - dto1.getAmericanosale();
-					contents1[2][1] = dto1.getCaffelatteTotal() - dto1.getCaffelattesalequan();
-					contents1[2][2] = dto1.getCaffelatteSum() - dto1.getCaffelattesale();
-					contents1[3][1] = dto1.getVienacoffeeTotal() - dto1.getVienacoffeesalequan();
-					contents1[3][2] = dto1.getVienacoffeeSum() - dto1.getVienacoffeesale();
-					contents1[4][1] = dto1.getChocofrapuccinoTotal() - dto1.getChocofrapuccinosalequan();
-					contents1[4][2] = dto1.getChocofrapuccinoSum() - dto1.getChocofrapuccinosale();
+					dto2 = dao.americano();
+					dto3 = dao.caffelatte();
+					dto4 = dao.vienacoffee();
+					dto5 = dao.chocofrapuccino();
+					dto6 = dao.espressosale();
+					dto7 = dao.americanosale();
+					dto8 = dao.caffelattesale();
+					dto9 = dao.vienacoffeesale();
+					dto10 = dao.chocofrapuccinosale();
+					contents1[0][1] = dto1.getEspressoTotal() - dto6.getEspressosalequan();
+					contents1[0][2] = dto1.getEspressoSum() - dto6.getEspressosale();
+					contents1[1][1] = dto2.getAmericanoTotal() - dto7.getAmericanosalequan();
+					contents1[1][2] = dto2.getAmericanoSum() - dto7.getAmericanosale();
+					contents1[2][1] = dto3.getCaffelatteTotal() - dto8.getCaffelattesalequan();
+					contents1[2][2] = dto3.getCaffelatteSum() - dto8.getCaffelattesale();
+					contents1[3][1] = dto4.getVienacoffeeTotal() - dto9.getVienacoffeesalequan();
+					contents1[3][2] = dto4.getVienacoffeeSum() - dto9.getVienacoffeesale();
+					contents1[4][1] = dto5.getChocofrapuccinoTotal() - dto10.getChocofrapuccinosalequan();
+					contents1[4][2] = dto5.getChocofrapuccinoSum() - dto10.getChocofrapuccinosale();
 					tmodel.addRow(contents1[0]);
 					tmodel.addRow(contents1[1]);
 					tmodel.addRow(contents1[2]);
@@ -181,6 +186,6 @@ public class Statistic {
 		}
 
 		public static void main(String[] args) {
-			Statistic stat = new Statistic();
+			Statistic2 stat = new Statistic2();
 		}
 }

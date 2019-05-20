@@ -1,6 +1,7 @@
 package pos;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -29,6 +30,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import inven.Inven;
@@ -51,13 +53,14 @@ public class Main {
 	static InvenDto idto = new InvenDto();
 	private static JTable table;
 	static DefaultTableModel tmodel;
-	static DefaultTableCellRenderer dcr;
+	static TableColorCellRenderer dcr;	// '쿠폰사용'열 색상 변경용
+	static DefaultTableCellRenderer dcr2;	// '쿠폰사용' 제외한 나머지 열 가운데 정렬용
 	static boolean finish = false;
 	static int tableRow = 0; // 행 수 세는 변수
 	static int finPrice = 0; // 최종 결제 금액
 	static int selectText = 0; // (멤버찾기/받은금액)textfield focus된곳 가리키는 변수
 	public static int eventDoit = 0; // 1이 되면 이벤트 모드 실행임을 가리킴
-	public static String telForEvent = null;
+	public static String telForEvent = null;	// 이벤트에 적용될 tel번호
 	public static JLabel labelShowEvent;
 	private static JTextField textFindMember;
 	private static JTextField textShowName;
@@ -67,6 +70,34 @@ public class Main {
 	private static JLabel labelDate;
 	private static JLabel labelTime;
 
+	public class TableColorCellRenderer implements TableCellRenderer{	// 개별 행 컬럼에 색상을 적용하기 위해 TableCellRenderer를 오버라이딩
+		private final TableCellRenderer RENDERER = new DefaultTableCellRenderer();
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			Component c = RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			
+			if(column == 5) {	// '쿠폰사용' 컬럼에만 적용
+				boolean result = (boolean)table.getModel().getValueAt(row, column);
+				Color color = null;
+				if(result == true) {
+					color = Color.orange;
+					c.setBackground(color);
+					c.setForeground(color);
+				} else {
+					color = Color.white;
+					c.setBackground(color);
+					c.setForeground(color);
+				}
+			} else {
+				c.setForeground(Color.black);
+			}
+			
+			return c;
+		}
+	}
+	
 	public Main() {
 		CoffeeInfo espre = new CoffeeInfo("Espresso", 2500);
 		CoffeeInfo ameri = new CoffeeInfo("Americano", 3000);
@@ -83,13 +114,15 @@ public class Main {
 		String[] col = { "번호", "메뉴", "단가", "수량", "가격", "쿠폰사용" }; // 열 목록
 
 		tmodel = new DefaultTableModel(col, 0);
-		dcr = new DefaultTableCellRenderer(); // 셀 다루는 객체 (체크박스 생성, 가운데 정렬)
-		dcr.setHorizontalAlignment(SwingConstants.CENTER); //
+		dcr = new TableColorCellRenderer(); // 직접 만든 셀 다루는 객체 (5열 색상)
+		dcr2 = new DefaultTableCellRenderer();	// 기본적으로 있는 셀 다루는 객체 (5열 제외 가운데 정렬)
+		dcr2.setHorizontalAlignment(SwingConstants.CENTER); //
 		table = new JTable(tmodel);
 
 		TableColumnModel tcm = table.getColumnModel(); // 테이블 가운데 정렬
 		for (int i = 0; i < tcm.getColumnCount(); i++) {
 			tcm.getColumn(i).setCellRenderer(dcr); // table에서 컬럼을 불러온 뒤 셀의 속성을 설정
+			tcm.getColumn(i).setCellRenderer(dcr2); // table에서 컬럼을 불러온 뒤 셀의 속성을 설정			
 		}
 		table.setRowHeight(40); // 행 높이 조절
 		table.getColumnModel().getColumn(0).setPreferredWidth(5); // 1번째 열 넓이 조절
