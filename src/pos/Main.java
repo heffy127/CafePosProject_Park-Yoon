@@ -43,8 +43,12 @@ import membership.Membership;
 import paybill.PaybillDAO;
 import paybill.PaybillDTO;
 import statistic.Statistic;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Main {
+	JButton buttonShowMember;
+	JButton buttonShowChange;
 	static MemberDao mdao = new MemberDao();
 	static MemberDto mdto = new MemberDto();
 	static PaybillDTO pdto = new PaybillDTO(); // 결제 내역 관리
@@ -60,7 +64,7 @@ public class Main {
 	static int finPrice = 0; // 최종 결제 금액
 	static int selectText = 0; // (멤버찾기/받은금액)textfield focus된곳 가리키는 변수
 	public static int eventDoit = 0; // 1이 되면 이벤트 모드 실행임을 가리킴
-	public static String telForEvent = null;	// 이벤트에 적용될 tel번호
+	public static String telForEvent = null;	// 이벤트 모드에 적용될 tel번호
 	public static JLabel labelShowEvent;
 	private static JTextField textFindMember;
 	private static JTextField textShowName;
@@ -102,7 +106,7 @@ public class Main {
 		CoffeeInfo espre = new CoffeeInfo("Espresso", 2500);
 		CoffeeInfo ameri = new CoffeeInfo("Americano", 3000);
 		CoffeeInfo latte = new CoffeeInfo("CaffeLatte", 3500);
-		CoffeeInfo vienna = new CoffeeInfo("VienaCoffee", 3500);
+		CoffeeInfo vienna = new CoffeeInfo("ViennaCoffee", 3500);
 		CoffeeInfo choco = new CoffeeInfo("ChocoFrappuccino", 4000);
 
 		JFrame f1 = new JFrame("카페 포스 시스템");
@@ -121,8 +125,8 @@ public class Main {
 
 		TableColumnModel tcm = table.getColumnModel(); // 테이블 가운데 정렬
 		for (int i = 0; i < tcm.getColumnCount(); i++) {
-			tcm.getColumn(i).setCellRenderer(dcr); // table에서 컬럼을 불러온 뒤 셀의 속성을 설정
-			tcm.getColumn(i).setCellRenderer(dcr2); // table에서 컬럼을 불러온 뒤 셀의 속성을 설정			
+			tcm.getColumn(i).setCellRenderer(dcr); // table에서 컬럼을 불러온 뒤 셀의 속성을 설정 ("쿠폰사용"열 색상)
+			tcm.getColumn(i).setCellRenderer(dcr2); // table에서 컬럼을 불러온 뒤 셀의 속성을 설정	(가운데 정렬)		
 		}
 		table.setRowHeight(40); // 행 높이 조절
 		table.getColumnModel().getColumn(0).setPreferredWidth(5); // 1번째 열 넓이 조절
@@ -366,7 +370,14 @@ public class Main {
 		panel.setLayout(null);
 
 		textFindMember = new JTextField();
-		textFindMember.addFocusListener(new FocusAdapter() {
+		textFindMember.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {	// 키보드 엔터 눌렀을때 검색 버튼 누르기 실행
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+					buttonShowMember.doClick();
+			}
+		});
+		textFindMember.addFocusListener(new FocusAdapter() {// 커서 깜빡일때 화상키보드가 여기에 입력되도록
 			@Override
 			public void focusGained(FocusEvent arg0) { // focus 받았을때 실행
 				selectText = 0;
@@ -466,7 +477,7 @@ public class Main {
 		lblNewLabel_1.setBounds(0, 0, 249, 39);
 		panel_1.add(lblNewLabel_1);
 
-		JButton buttonShowMember = new JButton("검색");
+		buttonShowMember = new JButton("검색");
 		buttonShowMember.setFont(new Font("굴림", Font.PLAIN, 13));
 		buttonShowMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -563,7 +574,14 @@ public class Main {
 		panel_2.add(labelShowTotalPrice);
 
 		textTakemoney = new JTextField();
-		textTakemoney.addFocusListener(new FocusAdapter() {
+		textTakemoney.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {	// 키보드 엔터 눌렀을때 검색 버튼 누르기 실행
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+					buttonShowChange.doClick();
+			}
+		});
+		textTakemoney.addFocusListener(new FocusAdapter() {	// 커서 깜빡일때 화상키보드가 여기에 입력되도록
 			@Override
 			public void focusGained(FocusEvent e) {
 				selectText = 1;

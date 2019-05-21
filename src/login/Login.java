@@ -13,8 +13,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import pos.Main;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Login {
+	JButton b1;
+	
 	private static JTextField t1;
 	private JPasswordField pF1;
 	public Login() {
@@ -25,6 +29,13 @@ public class Login {
 		f.getContentPane().setLayout(null);
 		
 		t1 = new JTextField();
+		t1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+					b1.doClick();
+			}
+		});
 		t1.setFont(new Font("굴림", Font.PLAIN, 20));
 		t1.setBounds(480, 399, 302, 38);
 		f.getContentPane().add(t1);
@@ -63,7 +74,7 @@ public class Login {
 		b2.setBounds(470, 551, 153, 37);
 		f.getContentPane().add(b2);
 		
-		JButton b1 = new JButton("\uB85C\uADF8\uC778");
+		b1 = new JButton("\uB85C\uADF8\uC778");
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				LoginDao dao = new LoginDao();
@@ -88,6 +99,13 @@ public class Login {
 		f.getContentPane().add(b1);
 		
 		pF1 = new JPasswordField();
+		pF1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+					b1.doClick();
+			}
+		});
 		pF1.setBounds(480, 478, 302, 38);
 		f.getContentPane().add(pF1);
 		
