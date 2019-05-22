@@ -1096,7 +1096,7 @@ public class Main {
 
 		ldto = ldao.info();
 
-		JLabel labelLogin = new JLabel("Login by '" + ldto.getId() + "'");
+		JLabel labelLogin = new JLabel("User : " + ldto.getId());
 		labelLogin.setFont(new Font("굴림", Font.PLAIN, 16));
 		labelLogin.setBounds(642, 28, 130, 27);
 		f1.getContentPane().add(labelLogin);
