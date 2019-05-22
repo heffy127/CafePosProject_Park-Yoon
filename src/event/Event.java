@@ -48,7 +48,8 @@ public class Event extends JFrame {
 			}
 		}
 
-		setSize(518, 396);
+		setBounds(700, 300, 518, 396);
+		setResizable(false);
 		getContentPane().setBackground(new Color(204, 255, 255));
 		getContentPane().setLayout(null);
 

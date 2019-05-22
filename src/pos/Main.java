@@ -112,7 +112,8 @@ public class Main {
 		JFrame f1 = new JFrame("카페 포스 시스템");
 		f1.setTitle("카페POS프로그램 (Ver 1.01)");
 		f1.getContentPane().setFont(new Font("굴림", Font.PLAIN, 19));
-		f1.setSize(1080, 800);
+		f1.setBounds(400, 100, 1080, 800);
+		f1.setResizable(false);
 		f1.getContentPane().setLayout(null);
 
 		String[] col = { "번호", "메뉴", "단가", "수량", "가격", "쿠폰사용" }; // 열 목록

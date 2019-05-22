@@ -11,7 +11,8 @@ import java.awt.BorderLayout;
 public class NotEnoughInven extends JFrame{
 	public NotEnoughInven() {
 		setTitle("버튼 누르면 경고창 닫기");
-		setSize(443, 198);
+		setBounds(770, 390, 443, 198);
+		setResizable(false);
 		
 		JButton btnNewButton = new JButton("재료가 부족합니다! 재고량을 확인해주세요.");
 		btnNewButton.addActionListener(new ActionListener() {

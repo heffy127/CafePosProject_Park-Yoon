@@ -13,6 +13,8 @@ public class NoFinPrice extends JFrame{
 	public NoFinPrice() {
 		setTitle("버튼 누르면 경고창 닫기");
 		setSize(443, 198);
+		setBounds(770, 390, 443, 198);
+		setResizable(false);
 		
 		JButton btnNewButton = new JButton("결제 전 '선택완료' 버튼을 눌러주세요!");
 		btnNewButton.addActionListener(new ActionListener() {

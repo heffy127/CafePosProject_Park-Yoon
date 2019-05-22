@@ -19,6 +19,7 @@ public class SelectGender {
 		PaybillDAO pdao = new PaybillDAO();
 		JFrame f = new JFrame("결제 손님 성별정보 저장");
 		f.setSize(500, 300);
+		f.setBounds(700, 300, 494, 283);
 		f.getContentPane().setLayout(null);
 		f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // x로 안꺼짐
 

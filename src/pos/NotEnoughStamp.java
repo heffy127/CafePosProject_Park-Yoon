@@ -11,7 +11,8 @@ import java.awt.BorderLayout;
 public class NotEnoughStamp extends JFrame{
 	public NotEnoughStamp() {
 		setTitle("버튼 누르면 경고창 닫기");
-		setSize(443, 198);
+		setBounds(770, 390, 443, 198);
+		setResizable(false);
 		
 		JButton btnNewButton = new JButton("회원님의 스탬프 수가 부족합니다!");
 		btnNewButton.addActionListener(new ActionListener() {

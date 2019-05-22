@@ -10,7 +10,8 @@ import java.awt.event.ActionEvent;
 public class DeleteError extends JFrame{
 	public DeleteError() {
 		setTitle("버튼 누르면 경고창 닫기");
-		setSize(443, 198);
+		setBounds(770, 390, 443, 198);
+		setResizable(false);
 		getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("삭제할 계정 전화번호를 확인해주세요");

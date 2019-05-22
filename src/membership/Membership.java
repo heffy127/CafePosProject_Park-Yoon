@@ -22,8 +22,11 @@ import javax.swing.table.TableColumnModel;
 
 import javax.swing.JToggleButton;
 import pos.Main;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Membership extends JFrame {
+	JButton buttonSearch;
 	static DefaultTableModel tmodel;
 	static int mtableRow = 0; // 멤버쉽 테이블 목록 창
 	static DefaultTableCellRenderer dcr;
@@ -42,7 +45,8 @@ public class Membership extends JFrame {
 	public Membership() {
 		setTitle("멤버쉽 관리 창 (종료하기 버튼으로 종료)");
 		setSize(985, 674);
-		setBounds(200, 100, 770, 545);
+		setResizable(false);
+		setBounds(600, 200, 770, 545);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // x로 안꺼짐
 		getContentPane().setLayout(null);
 
@@ -86,11 +90,23 @@ public class Membership extends JFrame {
 		getContentPane().add(comboBox);
 
 		textFindmember = new JTextField();
+		textFindmember.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+					buttonSearch.doClick();
+			}
+		});
 		textFindmember.setBounds(99, 11, 132, 21);
 		getContentPane().add(textFindmember);
 		textFindmember.setColumns(10);
 
-		JButton buttonSearch = new JButton("검색");
+		buttonSearch = new JButton("검색");
+		buttonSearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+			}
+		});
 		buttonSearch.setBounds(234, 11, 67, 22);
 		buttonSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

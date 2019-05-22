@@ -13,7 +13,8 @@ import java.awt.event.ActionEvent;
 public class NoMembership extends JFrame{
 	public NoMembership() {
 		setTitle("버튼 누르면 경고창 닫기");
-		setSize(443, 198);
+		setBounds(770, 390, 443, 198);
+		setResizable(false);
 		
 		JButton btnNewButton = new JButton("쿠폰을 소비할 회원 정보 조회 필요!!");
 		btnNewButton.addActionListener(new ActionListener() {
