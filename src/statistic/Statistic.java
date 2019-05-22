@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Color;
 
 public class Statistic {
 	JButton buttonSearch3;
@@ -423,6 +424,18 @@ public class Statistic {
 		});
 		buttonSearch2.setBounds(892, 256, 63, 27);
 		f.getContentPane().add(buttonSearch2);
+		
+		JButton buttonExit = new JButton("종료");
+		buttonExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				f.setVisible(false);
+				return;
+			}
+		});
+		buttonExit.setForeground(Color.WHITE);
+		buttonExit.setBackground(new Color(255, 0, 102));
+		buttonExit.setBounds(989, 42, 63, 27);
+		f.getContentPane().add(buttonExit);
 
 		f.setVisible(true);
 	}
