@@ -54,7 +54,7 @@ public class MemberDao {
 		return dto;
 	}
 	
-	public ArrayList selectMemberName(String name) {
+	public ArrayList selectMemberName(String name) {	// 이름으로 회원 검색
 		MemberDto dto;
 		ArrayList list = new ArrayList();
 		try {
@@ -92,7 +92,7 @@ public class MemberDao {
 		return list;
 	}
 	
-	public ArrayList selectAll() {
+	public ArrayList selectAll() {	// 회원 전체 검색
 		MemberDto dto;
 		ArrayList list = new ArrayList();
 		try {
@@ -130,7 +130,7 @@ public class MemberDao {
 	}
 	
 	
-	public int insertMember(String name, String tel) {
+	public int insertMember(String name, String tel) {	// 회원 생성
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			url = "jdbc:mysql://localhost:3306/cafe";
@@ -160,7 +160,7 @@ public class MemberDao {
 	}
 	
 
-		public void plusStamp(String tel, int cnt) {
+		public void plusStamp(String tel, int cnt) {	// 커피 주문 또는 이벤트 참여시 스탬프 개수 증가
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				url = "jdbc:mysql://localhost:3306/cafe";
@@ -187,7 +187,7 @@ public class MemberDao {
 			}
 	}
 		
-		public int deleteMember(String tel) {
+		public int deleteMember(String tel) {	// 회원 삭제
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				url = "jdbc:mysql://localhost:3306/cafe";
@@ -215,7 +215,7 @@ public class MemberDao {
 			return res;
 		}
 		
-		public void UseStamp(String tel, int couponCnt) {
+		public void UseStamp(String tel, int couponCnt) {	// 쿠폰 사용시 멤버쉽 차감
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				url = "jdbc:mysql://localhost:3306/cafe";

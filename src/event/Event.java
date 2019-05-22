@@ -19,6 +19,10 @@ import pos.Main;
 public class Event extends JFrame {
 	static Random rand = new Random();
 	MemberDao mdao = new MemberDao();
+	/*
+	 * seleted가 0일 경우 Event창 실행 후 버튼이 처음 선택된것을 나타냄
+	 * 1값이 들어가게 되면 각 button의 else문장이 수행
+	 */
 	static int selected = 0;
 	JButton buttonBox1;
 	JButton buttonBox2;
@@ -31,31 +35,27 @@ public class Event extends JFrame {
 
 	public Event() {
 		setTitle("이벤트 창 (종료 버튼으로 종료)");
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // x로 안꺼짐
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // x로 안꺼짐 (종료버튼 눌렀을때 수행될 작업을 위해서)
 		Random rand = new Random();
 		int[] num = new int[8];
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 8; i++) {	// 랜덤 생성 시 중복 제거를 위한 반복문
 			num[i] = rand.nextInt(8);
 			for (int j = 0; j <= i; j++) // 현재 발생시킨 지점까지 검색해서 같은수 비교
 			{
-				if (num[i] == num[j] && j != i) {
+				if (num[i] == num[j] && j != i) { // j가 i와 같으면 수행 x
 					i = i - 1; // 같은수 있으면 i하나 감소해서 다시 발생
 				}
 			}
 		}
 
-		for (int n : num) {
-			System.out.println(n);
-		}
-		System.out.println(Main.telForEvent);
 		setSize(518, 396);
 		getContentPane().setBackground(new Color(204, 255, 255));
 		getContentPane().setLayout(null);
 
-		JLabel labelTitle = new JLabel("와 ! 랜 덤 박 스 !");
+		JLabel labelTitle = new JLabel("와 ! 랜 덤 박 스 ! ");
 		labelTitle.setFont(new Font("굴림", Font.BOLD | Font.ITALIC, 31));
 		labelTitle.setHorizontalAlignment(SwingConstants.RIGHT);
-		labelTitle.setBounds(0, 0, 381, 65);
+		labelTitle.setBounds(0, 0, 386, 65);
 		getContentPane().add(labelTitle);
 
 		ImageIcon icon_search = new ImageIcon("search.jpg");
@@ -82,26 +82,26 @@ public class Event extends JFrame {
 		buttonBox1.setIcon(icon_search);
 		buttonBox1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (selected == 0) {
+				if (selected == 0) {	
 					if (num[0] == 0) {
 						buttonBox1.setIcon(icon_present);
 						labelShowMessage.setText("*** 음료 쿠폰 1장(스탬프 10개)에 당첨되셨습니다 ! ***");
-						mdao.plusStamp(Main.telForEvent, 10);
+						mdao.plusStamp(Main.telForEvent, 10);	// 이벤트에 참여한 회원 스탬프 10장 증가 (MemberDao)
 					} else if (num[0] == 1) {
 						buttonBox1.setIcon(icon_oneFinger);
 						labelShowMessage.setText("* 스탬프 1개 추가 적립에 당첨되셨습니다 ! *");
-						mdao.plusStamp(Main.telForEvent, 1);
+						mdao.plusStamp(Main.telForEvent, 1);	// 이벤트에 참여한 회원 스탬프 1장 증가 (MemberDao)
 					} else if (num[0] == 2) {
 						buttonBox1.setIcon(icon_twoFingers);
 						labelShowMessage.setText("** 스탬프 2개 추가 적립에 당첨되셨습니다 ! **");
-						mdao.plusStamp(Main.telForEvent, 2);
+						mdao.plusStamp(Main.telForEvent, 2);	// 이벤트에 참여한 회원 스탬프 2장 증가 (MemberDao)
 					} else {
 						buttonBox1.setIcon(icon_explosion);
 						labelShowMessage.setText("꽝...다음 기회에 다시 도전해주세요 !");
 					}
-					selected = 1;
+					selected = 1;	// 1값을 주어 다른 버튼들에는 else문장이 수행되도록 함
 
-					buttonBox2.doClick();
+					buttonBox2.doClick();	// 다른 버튼들을 다 클릭시켜 결과 아이콘을 보여주도록 함
 					buttonBox3.doClick();
 					buttonBox4.doClick();
 					buttonBox5.doClick();
@@ -110,7 +110,7 @@ public class Event extends JFrame {
 					buttonBox8.doClick();
 				} else {
 					if (num[0] == 0) {
-						buttonBox1.setIcon(icon_present_no);
+						buttonBox1.setIcon(icon_present_no);	// 선택되지 않음을 알리는 회색빛 이미지 띄움
 					} else if (num[0] == 1) {
 						buttonBox1.setIcon(icon_oneFinger_no);
 					} else if (num[0] == 2) {
@@ -456,10 +456,11 @@ public class Event extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(selected == 1) {	// 버튼을 눌러서 랜덤박스를 열었을 경우
 					mdao.joinEvent(Main.telForEvent);// 해당 멤버쉽 db에 이벤트 참여하였음을 입력
+													 // 이벤트 모드를 끄고 다시 키기 전까지 재참여 불가
 				}
-				Main.telForEvent = null;
+				Main.telForEvent = null;	// 다음 이벤트 참여자 혹은 이벤트 미참여자를 위해 null값 대입
 				selected = 0;	// 다음 랜덤박스 실행때를 위해 0으로 초기화
-				setVisible(false);
+				setVisible(false);	// 종료
 			}
 		});
 		buttonExit.setFont(new Font("굴림", Font.BOLD, 19));

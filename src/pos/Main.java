@@ -658,10 +658,13 @@ public class Main {
 		JButton buttonShowChange = new JButton("입력");
 		buttonShowChange.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				if(textTakemoney.getText().trim().equals("")) {	// 아무 값도 입력 안되어있을때
+					textTakemoney.setText("0");
+				}
 				int takeMoney = Integer.parseInt(textTakemoney.getText());
 				int change = takeMoney - finPrice;
 				labelShowChange.setText(String.valueOf(change) + " 원");
+				
 			}
 		});
 		buttonShowChange.setFont(new Font("굴림", Font.PLAIN, 12));
@@ -911,7 +914,7 @@ public class Main {
 		});
 		btnAc.setForeground(Color.RED);
 		btnAc.setFont(new Font("굴림", Font.BOLD, 23));
-		btnAc.setBackground(new Color(153, 153, 153));
+		btnAc.setBackground(SystemColor.controlHighlight);
 		btnAc.setBounds(12, 91, 116, 56);
 		panel_8.add(btnAc);
 		// 멤버쉽 패널 끝
