@@ -31,7 +31,7 @@ public class Login {
 		f.getContentPane().setLayout(null);
 		
 		t1 = new JTextField();
-		t1.addKeyListener(new KeyAdapter() {
+		t1.addKeyListener(new KeyAdapter() {	// 엔터 입력시 확인 버튼 누르도록 설정
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)

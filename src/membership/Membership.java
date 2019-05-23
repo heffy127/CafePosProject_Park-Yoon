@@ -112,6 +112,9 @@ public class Membership extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				labelInsertAlert.setText("");
 				labelDeleteAlert.setText("");
+				if(textFindmember.getText().trim().equals("")) {
+					return;
+				}
 				String selected = comboBox.getSelectedItem().toString();
 				// 메뉴창 초기화
 				for (int i = mtableRow - 1; i >= 0; i--) {
@@ -229,6 +232,10 @@ public class Membership extends JFrame {
 		JButton buttonInsertMem = new JButton("가입하기");
 		buttonInsertMem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(textInputName.getText().trim().equals("") || textInputTel.getText().trim().equals("")) {
+					return;
+				}
+				
 				labelInsertAlert.setText("");
 				labelDeleteAlert.setText("");
 				String name = textInputName.getText();
@@ -277,6 +284,9 @@ public class Membership extends JFrame {
 		JButton buttonDeleteMem = new JButton("삭제하기");
 		buttonDeleteMem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(textdeleteTel.getText().trim().equals(""))
+					return;
+				
 				labelInsertAlert.setText("");
 				labelDeleteAlert.setText("");
 				String tel = textdeleteTel.getText();

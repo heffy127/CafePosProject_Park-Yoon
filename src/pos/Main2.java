@@ -48,8 +48,7 @@ import statistic.Statistic;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Main { 
-	JLabel labelNotice; // 맨 밑줄 공지사항 Text
+public class Main2 {
 	JButton buttonShowMember;
 	JButton buttonShowChange;
 	static LoginDto ldto = new LoginDto();
@@ -107,7 +106,7 @@ public class Main {
 		}
 	}
 
-	public Main() {
+	public Main2() {
 		CoffeeInfo espre = new CoffeeInfo("Espresso", 2500);
 		CoffeeInfo ameri = new CoffeeInfo("Americano", 3000);
 		CoffeeInfo latte = new CoffeeInfo("CaffeLatte", 3500);
@@ -1065,10 +1064,6 @@ public class Main {
 		buttonCredit.setBounds(190, 0, 196, 60);
 		panel_6.add(buttonCredit);
 
-		JPanel panel_9 = new JPanel();
-		panel_9.setBounds(398, 57, 32, 49);
-		panel_6.add(panel_9);
-
 		Timer timer = new Timer(); // 실시간 시계 설정
 		timer.schedule(new MakeTime(), 0, 1000);
 		// 호출 객체, 지연시간, 호출간격
@@ -1105,48 +1100,19 @@ public class Main {
 		labelLogin.setFont(new Font("굴림", Font.PLAIN, 16));
 		labelLogin.setBounds(642, 28, 130, 27);
 		f1.getContentPane().add(labelLogin);
-
-		labelNotice = new JLabel("asdf");
-		labelNotice.setForeground(Color.GRAY);
-		labelNotice.setBounds(1043, 735, 680, 18);
+		
+		JLabel labelNotice = new JLabel("");
+		labelNotice.setBounds(27, 727, 1003, 18);
 		f1.getContentPane().add(labelNotice);
-		String notice = "              한   시간   단위로   재고량   확인 ,     매장   청소   필수   !";
-		MovingText tt = new MovingText(notice);
-		tt.start();	// Thread 실행
 
 		f1.setVisible(true);
-	}
-
-	public class MovingText extends Thread { // Thread를 사용해 움직이는 문장 만듦
-		int x, y;
-		String text;
-		public MovingText(String text) {
-			this.text = text;
-		}
-
-		@Override
-		public void run() {
-			while (true) {	// 문장이 다 지나가면 오른쪽 맨끝에서 다시 시작
-				int i;
-				x=1040;
-				for (i = 1400; i >= 0; i--) { // i 가 0이 될때까지 왼쪽으로 이동 (대충 프레임을 다 지나갈때까지로 타이밍 맞춤)
-					labelNotice.setText(text);
-					x -= 1;
-					labelNotice.setBounds(x, 735, 665, 18);
-					try {
-						Thread.sleep(30);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
 	}
 
 	class MakeTime extends TimerTask { // 실시간 시계를 정의하는 클래스
 
 		@Override
 		public void run() {
+			// TODO Auto-generated method stub
 			Calendar date = Calendar.getInstance();
 			SimpleDateFormat sdf1_1 = new SimpleDateFormat("yyyy년 M월 d일 E요일");
 			SimpleDateFormat sdf1_2 = new SimpleDateFormat("yyyy년 M월 dd일 E요일");
@@ -1170,7 +1136,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Main main = new Main();
+		Main2 main = new Main2();
 
 	}// main end
 }// class end
