@@ -48,6 +48,10 @@ public class Event extends JFrame {
 			}
 		}
 
+		for(int n : num) {
+			System.out.println(n);
+		}
+		
 		setBounds(700, 300, 518, 396);
 		setResizable(false);
 		getContentPane().setBackground(new Color(204, 255, 255));
