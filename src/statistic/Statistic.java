@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import java.awt.Font;
+import java.awt.Color;
 
 public class Statistic {
 	static DefaultTableModel tmodel;
@@ -280,7 +281,7 @@ public class Statistic {
 		Object[][] contents1 = { { "Espresso", dto1.getEspressoTotal(), dto1.getEspressoSum() },
 				{ "Americano", dto2.getAmericanoTotal(), dto2.getAmericanoSum() },
 				{ "Caffelatte", dto3.getCaffelatteTotal(), dto3.getCaffelatteSum() },
-				{ "viennacoffee", dto4.getViennacoffeeTotal(), dto4.getViennacoffeeSum() },
+				{ "Viennacoffee", dto4.getViennacoffeeTotal(), dto4.getViennacoffeeSum() },
 				{ "Chocofrappuccino", dto5.getChocofrappuccinoTotal(), dto5.getChocofrappuccinoSum()},
 				{ "총 판매량 / 총 매출", 0, 0}};
 		tmodel1 = new DefaultTableModel(header1, 0);
@@ -350,7 +351,7 @@ public class Statistic {
 		Object[][] contents2 = { { "Espresso", dto11.getEspressoMalequan(), dto11.getEspressoMalesum() },
 				{ "Americano", dto12.getAmericanoMalequan(), dto12.getAmericanoMalesum() },
 				{ "Caffelatte", dto13.getCaffelatteMalequan(), dto13.getCaffelatteMalesum() },
-				{ "viennacoffee", dto14.getViennacoffeeMalequan(), dto14.getViennacoffeeMalesum() },
+				{ "Viennacoffee", dto14.getViennacoffeeMalequan(), dto14.getViennacoffeeMalesum() },
 				{ "Chocofrappuccino", dto15.getChocofrappuccinoMalequan(), dto15.getChocofrappuccinoMalesum() } };
 		tmodel2 = new DefaultTableModel(header2, 0);
 		tmodel2.addRow(contents2[0]);// 테이블 내용 최신화를 위한 기본 세팅
@@ -457,7 +458,7 @@ public class Statistic {
 		Object[][] contents3 = { { "Espresso", dto21.getEspressoTotald(), dto21.getEspressoSumd() },
 				{ "Americano", dto22.getAmericanoTotald(), dto22.getAmericanoSumd() },
 				{ "Caffelatte", dto23.getCaffelatteTotald(), dto23.getCaffelatteSumd() },
-				{ "viennacoffee", dto24.getViennacoffeeTotald(), dto24.getViennacoffeeSumd() },
+				{ "Viennacoffee", dto24.getViennacoffeeTotald(), dto24.getViennacoffeeSumd() },
 				{ "Chocofrappuccino", dto25.getChocofrappuccinoTotald(), dto25.getChocofrappuccinoSumd() },
 				{ "총 판매량/총매출", 0 , 0}};
 		tmodel3 = new DefaultTableModel(header3, 0);
@@ -548,6 +549,18 @@ public class Statistic {
 		la4.setFont(new Font("굴림", Font.BOLD, 14));
 		la4.setBounds(930, 358, 57, 27);
 		f.getContentPane().add(la4);
+		
+		JButton btnNewButton = new JButton("종료");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				f.setVisible(false);
+				return;
+			}
+		});
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBackground(new Color(255, 0, 102));
+		btnNewButton.setBounds(981, 44, 71, 23);
+		f.getContentPane().add(btnNewButton);
 		
 		
 

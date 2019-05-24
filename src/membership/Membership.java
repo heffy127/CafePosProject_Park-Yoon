@@ -93,7 +93,7 @@ public class Membership extends JFrame {
 		textFindmember.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 					buttonSearch.doClick();
 			}
 		});
@@ -112,7 +112,7 @@ public class Membership extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				labelInsertAlert.setText("");
 				labelDeleteAlert.setText("");
-				if(textFindmember.getText().trim().equals("")) {
+				if (textFindmember.getText().trim().equals("")) {
 					return;
 				}
 				String selected = comboBox.getSelectedItem().toString();
@@ -232,10 +232,10 @@ public class Membership extends JFrame {
 		JButton buttonInsertMem = new JButton("가입하기");
 		buttonInsertMem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textInputName.getText().trim().equals("") || textInputTel.getText().trim().equals("")) {
+				if (textInputName.getText().trim().equals("") || textInputTel.getText().trim().equals("")) {
 					return;
 				}
-				
+
 				labelInsertAlert.setText("");
 				labelDeleteAlert.setText("");
 				String name = textInputName.getText();
@@ -284,9 +284,9 @@ public class Membership extends JFrame {
 		JButton buttonDeleteMem = new JButton("삭제하기");
 		buttonDeleteMem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textdeleteTel.getText().trim().equals(""))
+				if (textdeleteTel.getText().trim().equals(""))
 					return;
-				
+
 				labelInsertAlert.setText("");
 				labelDeleteAlert.setText("");
 				String tel = textdeleteTel.getText();
@@ -296,13 +296,13 @@ public class Membership extends JFrame {
 					if (res != 0) { // 0일 경우 delete 수행 안된 것
 						labelDeleteAlert.setText("삭제가 완료되었습니다.");
 						textdeleteTel.setText("");
+					} else {
+						textdeleteTel.setText("");
+						DeleteError de = new DeleteError();
+						return;
 					}
-				} else {
-					textdeleteTel.setText("");
-					return;
 				}
 			}
-
 		});
 		buttonDeleteMem.setBounds(57, 69, 109, 35);
 		panel_1.add(buttonDeleteMem);

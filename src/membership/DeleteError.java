@@ -23,7 +23,7 @@ public class DeleteError extends JFrame{
 		btnNewButton.setForeground(new Color(204, 0, 51));
 		btnNewButton.setBackground(new Color(255, 255, 153));
 		btnNewButton.setFont(new Font("굴림", Font.BOLD, 21));
-		btnNewButton.setBounds(0, 0, 421, 142);
+		btnNewButton.setBounds(0, 0, 437, 169);
 		getContentPane().add(btnNewButton);
 		
 		setVisible(true);
