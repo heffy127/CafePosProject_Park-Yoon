@@ -120,6 +120,7 @@ public class Statistic {
 
 		String[] header = { "No", "결제번호", "메뉴명", "가격", "수량", "합계", "쿠폰여부", "성별", "날짜" };
 		Object[][] contents = new Object[dto.getCount()][9];
+		paytableRow = 0;
 		for (int i = 0; i < contents.length; i++) {
 			StatDto dto = (StatDto) list.get(i);
 			contents[i][0] = ++paytableRow;
